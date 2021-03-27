@@ -6,3 +6,5 @@
 - Only spawn specific vehicle
 - Pay with Cash / Card
 
+## Preview
+[Click here](https://www.youtube.com/watch?v=WxrZR4C-BhQ)
