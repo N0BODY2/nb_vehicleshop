@@ -1,5 +1,5 @@
-RegisterServerEvent('esx_vehicleshop:rentVehicle')
-AddEventHandler('esx_vehicleshop:rentVehicle', function (vehicle, plate, playerName, basePrice, rentPrice, target)
+RegisterServerEvent('nb_vehicleshop:rentVehicle')
+AddEventHandler('nb_vehicleshop:rentVehicle', function (vehicle, plate, playerName, basePrice, rentPrice, target)
 	local xPlayer = ESX.GetPlayerFromId(target)
 
 	MySQL.Async.fetchAll('SELECT * FROM cardealer_vehicles WHERE vehicle = @vehicle LIMIT 1', {
@@ -25,7 +25,7 @@ AddEventHandler('esx_vehicleshop:rentVehicle', function (vehicle, plate, playerN
 	end)
 end)
 
-ESX.RegisterServerCallback('esx_vehicleshop:getRentedVehicles', function (source, cb)
+ESX.RegisterServerCallback('nb_vehicleshop:getRentedVehicles', function (source, cb)
 	MySQL.Async.fetchAll('SELECT * FROM rented_vehicles ORDER BY player_name ASC', {}, function (result)
 		local vehicles = {}
 
@@ -41,7 +41,7 @@ ESX.RegisterServerCallback('esx_vehicleshop:getRentedVehicles', function (source
 	end)
 end)
 
-ESX.RegisterServerCallback('esx_vehicleshop:giveBackVehicle', function (source, cb, plate)
+ESX.RegisterServerCallback('nb_vehicleshop:giveBackVehicle', function (source, cb, plate)
 	MySQL.Async.fetchAll('SELECT * FROM rented_vehicles WHERE plate = @plate', {
 		['@plate'] = plate
 	}, function (result)

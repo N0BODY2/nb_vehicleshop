@@ -1,5 +1,5 @@
-RegisterServerEvent('esx_vehicleshop:getStockItem')
-AddEventHandler('esx_vehicleshop:getStockItem', function (itemName, count)
+RegisterServerEvent('nb_vehicleshop:getStockItem')
+AddEventHandler('nb_vehicleshop:getStockItem', function (itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local sourceItem = xPlayer.getInventoryItem(itemName)
@@ -33,8 +33,8 @@ AddEventHandler('esx_vehicleshop:getStockItem', function (itemName, count)
 	end)
 end)
 
-RegisterServerEvent('esx_vehicleshop:putStockItems')
-AddEventHandler('esx_vehicleshop:putStockItems', function (itemName, count)
+RegisterServerEvent('nb_vehicleshop:putStockItems')
+AddEventHandler('nb_vehicleshop:putStockItems', function (itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
@@ -51,14 +51,14 @@ AddEventHandler('esx_vehicleshop:putStockItems', function (itemName, count)
 	end)
 end)
 
-ESX.RegisterServerCallback('esx_vehicleshop:getStockItems', function (source, cb)
+ESX.RegisterServerCallback('nb_vehicleshop:getStockItems', function (source, cb)
 	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_cardealer', function(inventory)
 		cb(inventory.items)
 	end)
 end)
 
-RegisterServerEvent('esx_vehicleshop:sellVehicle')
-AddEventHandler('esx_vehicleshop:sellVehicle', function (vehicle)
+RegisterServerEvent('nb_vehicleshop:sellVehicle')
+AddEventHandler('nb_vehicleshop:sellVehicle', function (vehicle)
 	MySQL.Async.fetchAll('SELECT * FROM cardealer_vehicles WHERE vehicle = @vehicle LIMIT 1', {
 		['@vehicle'] = vehicle
 	}, function (result)
@@ -70,13 +70,13 @@ AddEventHandler('esx_vehicleshop:sellVehicle', function (vehicle)
 	end)
 end)
 
-RegisterServerEvent('esx_vehicleshop:addToList')
-AddEventHandler('esx_vehicleshop:addToList', function(target, model, plate)
+RegisterServerEvent('nb_vehicleshop:addToList')
+AddEventHandler('nb_vehicleshop:addToList', function(target, model, plate)
 	local xPlayer, xTarget = ESX.GetPlayerFromId(source), ESX.GetPlayerFromId(target)
 	local dateNow = os.date('%Y-%m-%d %H:%M')
 
 	if xPlayer.job.name ~= 'cardealer' then
-		print(('esx_vehicleshop: %s attempted to add a sold vehicle to list!'):format(xPlayer.identifier))
+		print(('nb_vehicleshop: %s attempted to add a sold vehicle to list!'):format(xPlayer.identifier))
 		return
 	end
 
@@ -89,7 +89,7 @@ AddEventHandler('esx_vehicleshop:addToList', function(target, model, plate)
 	})
 end)
 
-ESX.RegisterServerCallback('esx_vehicleshop:getSoldVehicles', function (source, cb)
+ESX.RegisterServerCallback('nb_vehicleshop:getSoldVehicles', function (source, cb)
 
 	MySQL.Async.fetchAll('SELECT * FROM vehicle_sold', {}, function(result)
 		cb(result)

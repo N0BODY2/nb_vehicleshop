@@ -145,7 +145,7 @@ function OpenShopMenu()
 		if IsModelInCdimage(GetHashKey(Vehicles[i].model)) then
 			table.insert(vehiclesByCategory[Vehicles[i].category], Vehicles[i])
 		else
-			print(('esx_vehicleshop: vehicle "%s" does not exist'):format(Vehicles[i].model))
+			print(('nb_vehicleshop: vehicle "%s" does not exist'):format(Vehicles[i].model))
 		end
 	end
 
@@ -238,7 +238,7 @@ function OpenShopMenu()
   elseif data2.current.value == 'yes' then
 
 				if Config.EnablePlayerManagement then
-					ESX.TriggerServerCallback('esx_vehicleshop:buyVehicleSociety', function(hasEnoughMoney)
+					ESX.TriggerServerCallback('nb_vehicleshop:buyVehicleSociety', function(hasEnoughMoney)
 						if hasEnoughMoney then
 							IsInShopMenu = false
 
@@ -285,7 +285,7 @@ function OpenShopMenu()
 								}}, function (data4, menu4)
 									if data4.current.value == 'penize' then 
 
-										ESX.TriggerServerCallback('esx_vehicleshop:buyVehicleCash', function(hascash)
+										ESX.TriggerServerCallback('nb_vehicleshop:buyVehicleCash', function(hascash)
 											if hascash then
 												IsInShopMenu = false
 
@@ -304,7 +304,7 @@ function OpenShopMenu()
 													SetVehicleNumberPlateText(vehicle, newPlate)
 		
 													if Config.EnableOwnedVehicles then
-														TriggerServerEvent('esx_vehicleshop:setVehicleOwned', vehicleProps)
+														TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
 													end
 		
 													exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
@@ -331,7 +331,7 @@ function OpenShopMenu()
 								}}, function (data5, menu5)
 									if data5.current.value == 'penize' then 
 
-										ESX.TriggerServerCallback('esx_vehicleshop:buyVehicle', function(hasbank)
+										ESX.TriggerServerCallback('nb_vehicleshop:buyVehicle', function(hasbank)
 											if hasbank then
 												IsInShopMenu = false
 
@@ -350,7 +350,7 @@ function OpenShopMenu()
 													SetVehicleNumberPlateText(vehicle, newPlate)
 		
 													if Config.EnableOwnedVehicles then
-														TriggerServerEvent('esx_vehicleshop:setVehicleOwned', vehicleProps)
+														TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
 													end
 		
 													exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
@@ -372,7 +372,7 @@ function OpenShopMenu()
 							menu3.close()
 						end)
 					else
-						ESX.TriggerServerCallback('esx_vehicleshop:buyVehicle', function (hasEnoughMoney)
+						ESX.TriggerServerCallback('nb_vehicleshop:buyVehicle', function (hasEnoughMoney)
 							if hasEnoughMoney then
 								IsInShopMenu = false
 								menu2.close()
@@ -388,7 +388,7 @@ function OpenShopMenu()
 									SetVehicleNumberPlateText(vehicle, newPlate)
 
 									if Config.EnableOwnedVehicles then
-										TriggerServerEvent('esx_vehicleshop:setVehicleOwned', vehicleProps)
+										TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
 									end
 
 									exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
