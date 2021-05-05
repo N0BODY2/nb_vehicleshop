@@ -316,6 +316,38 @@ function OpenShopMenu()
 												ESX.ShowNotification(_U('not_enough_money'))
 											end
 										end, vehicleData.model)
+									elseif data4.current.value == 'banka' then
+										ESX.TriggerServerCallback('nb_vehicleshop:buyVehicle', function(hasbank)
+											if hasbank then
+												IsInShopMenu = false
+
+												menu4.close()
+												menu3.close()
+												menu2.close()
+												menu.close()
+												DeleteShopInsideVehicles()
+		
+												ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutside.Pos, Config.Zones.ShopOutside.Heading, function (vehicle)
+													TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+		
+													local newPlate     = GeneratePlate()
+													local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
+													vehicleProps.plate = newPlate
+													SetVehicleNumberPlateText(vehicle, newPlate)
+		
+													if Config.EnableOwnedVehicles then
+														TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
+													end
+		
+													exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
+												end)
+		
+												FreezeEntityPosition(playerPed, false)
+												SetEntityVisible(playerPed, true)
+											else
+												ESX.ShowNotification(_U('not_enough_money'))
+											end
+										end, vehicleData.model)	
 							          end
 							        end, function (data4, menu4)
 								        menu4.close()
@@ -329,7 +361,7 @@ function OpenShopMenu()
 										{label = _U('penize'),   value = 'penize'},
 										{label = _U('banka'), value = 'banka'}
 								}}, function (data5, menu5)
-									if data5.current.value == 'penize' then 
+									if data5.current.value == 'banka' then 
 
 										ESX.TriggerServerCallback('nb_vehicleshop:buyVehicle', function(hasbank)
 											if hasbank then
@@ -362,6 +394,38 @@ function OpenShopMenu()
 												ESX.ShowNotification(_U('not_enough_money'))
 											end
 										end, vehicleData.model)
+									elseif data5.current.value == 'penize' then 
+										ESX.TriggerServerCallback('nb_vehicleshop:buyVehicleCash', function(hascash)
+											if hascash then
+												IsInShopMenu = false
+
+												menu4.close()
+												menu3.close()
+												menu2.close()
+												menu.close()
+												DeleteShopInsideVehicles()
+		
+												ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutside.Pos, Config.Zones.ShopOutside.Heading, function (vehicle)
+													TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+		
+													local newPlate     = GeneratePlate()
+													local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
+													vehicleProps.plate = newPlate
+													SetVehicleNumberPlateText(vehicle, newPlate)
+		
+													if Config.EnableOwnedVehicles then
+														TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
+													end
+		
+													exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
+												end)
+		
+												FreezeEntityPosition(playerPed, false)
+												SetEntityVisible(playerPed, true)
+											else
+												ESX.ShowNotification(_U('not_enough_money'))
+											end
+										end, vehicleData.model)	
 							          end
 							        end, function (data5, menu5)
 								        menu5.close()
