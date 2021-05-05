@@ -235,8 +235,7 @@ function OpenShopMenu()
 				 DeleteShopInsideVehicles()
 			 end) 
 		   end)
-  elseif data2.current.value == 'yes' then
-
+		elseif data2.current.value == 'yes' then
 				if Config.EnablePlayerManagement then
 					ESX.TriggerServerCallback('nb_vehicleshop:buyVehicleSociety', function(hasEnoughMoney)
 						if hasEnoughMoney then
@@ -436,34 +435,80 @@ function OpenShopMenu()
 							menu3.close()
 						end)
 					else
-						ESX.TriggerServerCallback('nb_vehicleshop:buyVehicle', function (hasEnoughMoney)
-							if hasEnoughMoney then
-								IsInShopMenu = false
-								menu2.close()
-								menu.close()
-								DeleteShopInsideVehicles()
+						ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'person_basics', {
+							title = _U('zaplatit'),
+							align = Config.allign,
+							elements = {
+								{label = _U('penize'),   value = 'penize'},
+								{label = _U('banka'), value = 'banka'}
+						}}, function (data6, menu6)
+							if data6.current.value == 'banka' then 
 
-								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutside.Pos, Config.Zones.ShopOutside.Heading, function (vehicle)
-									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								ESX.TriggerServerCallback('nb_vehicleshop:buyVehicle', function(hasbank)
+									if hasbank then
+										IsInShopMenu = false
 
-									local newPlate     = GeneratePlate()
-									local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
-									vehicleProps.plate = newPlate
-									SetVehicleNumberPlateText(vehicle, newPlate)
+										menu6.close()
+										menu2.close()
+										menu.close()
+										DeleteShopInsideVehicles()
 
-									if Config.EnableOwnedVehicles then
-										TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
+										ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutside.Pos, Config.Zones.ShopOutside.Heading, function (vehicle)
+											TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+
+											local newPlate     = GeneratePlate()
+											local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
+											vehicleProps.plate = newPlate
+											SetVehicleNumberPlateText(vehicle, newPlate)
+
+											if Config.EnableOwnedVehicles then
+												TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
+											end
+
+											exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
+										end)
+
+										FreezeEntityPosition(playerPed, false)
+										SetEntityVisible(playerPed, true)
+									else
+										ESX.ShowNotification(_U('not_enough_money'))
 									end
+								end, vehicleData.model)
+							elseif data5.current.value == 'penize' then 
+								ESX.TriggerServerCallback('nb_vehicleshop:buyVehicleCash', function(hascash)
+									if hascash then
+										IsInShopMenu = false
 
-									exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
-								end)
+										menu6.close()
+										menu2.close()
+										menu.close()
+										DeleteShopInsideVehicles()
 
-								FreezeEntityPosition(playerPed, false)
-								SetEntityVisible(playerPed, true)
-							else
-								ESX.ShowNotification(_U('not_enough_money'))
-							end
-						end, vehicleData.model)
+										ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutside.Pos, Config.Zones.ShopOutside.Heading, function (vehicle)
+											TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+
+											local newPlate     = GeneratePlate()
+											local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
+											vehicleProps.plate = newPlate
+											SetVehicleNumberPlateText(vehicle, newPlate)
+
+											if Config.EnableOwnedVehicles then
+												TriggerServerEvent('nb_vehicleshop:setVehicleOwned', vehicleProps)
+											end
+
+											exports['mythic_notify']:SendAlert('success', _U('vehicle_purchased'))
+										end)
+
+										FreezeEntityPosition(playerPed, false)
+										SetEntityVisible(playerPed, true)
+									else
+										ESX.ShowNotification(_U('not_enough_money'))
+									end
+								end, vehicleData.model)	
+							  end
+							end, function (data6, menu6)
+							menu6.close()
+						end)
 					end
 				end
 			end
