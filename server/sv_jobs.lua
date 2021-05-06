@@ -75,7 +75,7 @@ AddEventHandler('nb_vehicleshop:addToList', function(target, model, plate)
 	local xPlayer, xTarget = ESX.GetPlayerFromId(source), ESX.GetPlayerFromId(target)
 	local dateNow = os.date('%Y-%m-%d %H:%M')
 
-	if xPlayer.job.name ~= 'cardealer' then
+	if xPlayer.job.name ~= Config.job then
 		print(('nb_vehicleshop: %s attempted to add a sold vehicle to list!'):format(xPlayer.identifier))
 		return
 	end

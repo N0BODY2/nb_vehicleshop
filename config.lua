@@ -4,6 +4,7 @@ Config.Locale                     = 'en'
 Config.DrawDistance               = 20.0
 Config.MarkerColor                = { r = 0, g = 255, b = 0 }
 Config.allign                     = 'top-right'     
+Config.job                        = 'cardealer'
 
 -- Basics
 Config.EnablePlayerManagement     = false 

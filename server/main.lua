@@ -4,8 +4,8 @@ local Vehicles   = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-TriggerEvent('esx_phone:registerNumber', 'cardealer', _U('dealer_customers'), false, false)
-TriggerEvent('esx_society:registerSociety', 'cardealer', _U('car_dealer'), 'society_cardealer', 'society_cardealer', 'society_cardealer', {type = 'private'})
+TriggerEvent('esx_phone:registerNumber', Config.job, _U('dealer_customers'), false, false)
+TriggerEvent('esx_society:registerSociety', Config.job, _U('car_dealer'), 'society_cardealer', 'society_cardealer', 'society_cardealer', {type = 'private'})
 
 Citizen.CreateThread(function()
 	local char = Config.PlateLetters
