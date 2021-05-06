@@ -95,7 +95,7 @@ function OpenBossActionsMenu()
             {label = _U('boss_sold'), value = 'sold_vehicles'}
     }}, function (data, menu)
         if data.current.value == 'boss_actions' then
-            TriggerEvent('esx_society:openBossMenu', 'vehicle', function(data2, menu2)
+            TriggerEvent('esx_society:openBossMenu', 'cardealer', function(data2, menu2)
                 menu2.close()
             end)
         elseif data.current.value == 'sold_vehicles' then

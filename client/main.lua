@@ -29,7 +29,7 @@ Citizen.CreateThread(function ()
 	end)
   
 	if Config.EnablePlayerManagement then
-		if ESX.PlayerData.job.name == 'vehicle' then
+		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
   
 			if ESX.PlayerData.job.grade_name == 'boss' then
@@ -48,7 +48,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.PlayerData = xPlayer
   
 	if Config.EnablePlayerManagement then
-		if ESX.PlayerData.job.name == 'vehicle' then
+		if ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
   
 			if ESX.PlayerData.job.grade_name == 'boss' then
@@ -260,7 +260,7 @@ function OpenShopMenu()
 						else
 							ESX.ShowNotification(_U('broke_company'))
 						end
-					end, 'vehicle', vehicleData.model)
+					end, 'cardealer', vehicleData.model)
 				else
 					local playerData = ESX.GetPlayerData()
 
@@ -557,7 +557,7 @@ AddEventHandler('esx:setJob', function (job)
 	  ESX.PlayerData.job = job
   
 	  if Config.EnablePlayerManagement then
-		  if ESX.PlayerData.job.name == 'vehicle' then
+		  if ESX.PlayerData.job.name == 'cardealer' then
 			  Config.Zones.ShopEntering.Type = 1
   
 			  if ESX.PlayerData.job.grade_name == 'boss' then
@@ -574,7 +574,7 @@ AddEventHandler('nb_vehicleshop:hasEnteredMarker', function (zone)
 	  if zone == 'ShopEntering' then
   
 		  if Config.EnablePlayerManagement then
-			  if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'vehicle' then
+			  if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'cardealer' then
 				  CurrentAction     = 'reseller_menu'
 				  CurrentActionMsg  = _U('shop_menu')
 				  CurrentActionData = {}
@@ -632,7 +632,7 @@ AddEventHandler('nb_vehicleshop:hasEnteredMarker', function (zone)
   
 		  end
   
-	  elseif zone == 'BossActions' and Config.EnablePlayerManagement and ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'vehicle' and ESX.PlayerData.job.grade_name == 'boss' then
+	  elseif zone == 'BossActions' and Config.EnablePlayerManagement and ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'cardealer' and ESX.PlayerData.job.grade_name == 'boss' then
   
 		  CurrentAction     = 'boss_actions_menu'
 		  CurrentActionMsg  = _U('shop_menu')
