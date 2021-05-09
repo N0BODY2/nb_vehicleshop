@@ -56,7 +56,11 @@ AddEventHandler('nb_vehicleshop:setVehicleOwned', function (vehicleProps)
 		['@plate']   = vehicleProps.plate,
 		['@vehicle'] = json.encode(vehicleProps)
 	}, function (rowsChanged)
-		TriggerClientEvent('mythic_notify:client:SendAlert', _source, {type = 'success', text = _U('vehicle_belongs', vehicleProps.plate)})
+		if Config.UseESXNotify then
+			TriggerClientEvent('esx:showNotification', _source,  _U('vehicle_belongs', vehicleProps.plate))
+		else
+			TriggerClientEvent('mythic_notify:client:SendAlert', _source, {type = 'success', text = _U('vehicle_belongs', vehicleProps.plate)})
+		end
 	end)
 end)
 
@@ -70,7 +74,11 @@ AddEventHandler('nb_vehicleshop:setVehicleOwnedPlayerId', function (playerId, ve
 		['@plate']   = vehicleProps.plate,
 		['@vehicle'] = json.encode(vehicleProps)
 	}, function (rowsChanged)
-		TriggerClientEvent('mythic_notify:client:SendAlert', playerId, {type = 'success', text = _U('vehicle_belongs', vehicleProps.plate)})
+		if Config.UseESXNotify then
+			TriggerClientEvent('esx:showNotification', playerId,  _U('vehicle_belongs', vehicleProps.plate))
+		else
+			TriggerClientEvent('mythic_notify:client:SendAlert', playerId, {type = 'success', text = _U('vehicle_belongs', vehicleProps.plate)})
+		end
 	end)
 end)
 
@@ -86,7 +94,11 @@ AddEventHandler('nb_vehicleshop:setVehicleOwnedSociety', function (vehicleProps)
 		['@vehicle'] = json.encode(vehicleProps),
 		['@job'] = xPlayer.job.name
 	}, function (rowsChanged)
-		TriggerClientEvent('mythic_notify:client:SendAlert', _source, {type = 'success', text = _U('vehicle_belongs', vehicleProps.plate)})
+		if Config.UseESXNotify then
+			TriggerClientEvent('esx:showNotification', _source,  _U('vehicle_belongs', vehicleProps.plate))
+		else
+			TriggerClientEvent('mythic_notify:client:SendAlert', _source, {type = 'success', text = _U('vehicle_belongs', vehicleProps.plate)})
+		end
 	end)
 end)
 
@@ -311,18 +323,5 @@ ESX.RegisterServerCallback('nb_vehicleshop:retrieveJobVehicles', function (sourc
 		['@job'] = xPlayer.job.name
 	}, function (result)
 		cb(result)
-	end)
-end)
-
-RegisterServerEvent('esx_bazarshop:setJobVehicleState')
-AddEventHandler('esx_bazarshop:setJobVehicleState', function(vehicleProps)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	MySQL.Async.execute('INSERT INTO owned_vehicles (plate, vehicle, job) VALUES (@plate, @vehicle, @job)', {
-		['@job'] = xPlayer.job.name,
-		['@plate']   = vehicleProps.plate,
-		['@vehicle'] = json.encode(vehicleProps)
-	}, function(rowsChanged)
-		TriggerClientEvent('esx:showNotification', source, _U('vehicle_belongs', vehicleProps.plate))
 	end)
 end)

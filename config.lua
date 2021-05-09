@@ -18,6 +18,10 @@ Config.ESXlimit = true
 --[[ 
 True = limit
 false = weight ]]
+Config.UseESXNotify = false
+--[[ 
+True = ESX Notify
+false = Mythic Notify ]]
 
 -- Plates
 Config.PlateLetters  = 4
