@@ -206,6 +206,8 @@ function OpenShopMenu()
 			  FreezeEntityPosition(vehicle, true)
 			  SetModelAsNoLongerNeeded(vehicleData.model)
 		  end)
+		elseif data2.current.value == 'no' then 
+			OpenShopMenu()
 		elseif data2.current.value == 'testdrive' then
 			local playerPed = PlayerPedId()
 		 
