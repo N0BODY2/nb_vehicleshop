@@ -474,7 +474,7 @@ function OpenShopMenu()
 										ESX.ShowNotification(_U('not_enough_money'))
 									end
 								end, vehicleData.model)
-							elseif data5.current.value == 'penize' then 
+							elseif data6.current.value == 'penize' then 
 								ESX.TriggerServerCallback('nb_vehicleshop:buyVehicleCash', function(hascash)
 									if hascash then
 										IsInShopMenu = false
