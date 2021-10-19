@@ -8,7 +8,7 @@
 ## Preview
 [Click here](https://www.youtube.com/watch?v=WxrZR4C-BhQ)
 
-##Support Discord
+## Support Discord
 
 Supported Languages CZ/SK/EN/ES
 [NB Scripts Discord](https://discord.gg/CRm3FQ8d4A)
